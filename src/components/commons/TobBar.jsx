@@ -1,22 +1,29 @@
-import React, { useState } from "react";
+import React from "react";
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import CloseIcon from '@mui/icons-material/Close';
 import SearchIcon from '@mui/icons-material/Search';
 import TheaterComedyIcon from '@mui/icons-material/TheaterComedy';
 import FaceIcon from '@mui/icons-material/Face';
+import EmojiPeopleIcon from '@mui/icons-material/EmojiPeople';
+
 
 const TobBar = ({
   title,
   query,
+  userData,
   setQuery,
-  loginClick,
   language,
   languageList,
   selectLang,
   isQueryTypeMovieName,
   setQueryType,
+  loginOrOutClick,
+  search,
+  setSearch,
+  showMenu,
+  setMenu,navigate
 }) => {
-  const [search, setSearch] = useState(false);
+
 
   const setSearchs = (event) => {
     let que = event.target.value;
@@ -25,7 +32,7 @@ const TobBar = ({
   };
 
   return (
-    <div className={`h-14 flex flex-row items-center w-screen md:h-20 shadow fixed top-0 z-50 bg-blur bg-black/40`}>
+    <div className={`h-14 flex flex-row items-center w-screen md:h-20 shadow fixed top-0 z-30 bg-blur bg-black/40`}>
       {!search ? (
         <div className="p-2 md:p-5 flex flex-1 items-center font-medium">
           <div className="flex items-center text-white">
@@ -42,7 +49,14 @@ const TobBar = ({
             <LanguageSection {...{ language, languageList, selectLang }} />
           </div>
 
-          {true ? <FaceIcon className="mr-3 text-white border p-1 rounded-full" sx={{ fontSize: { xs: 24, md: 45 } }} /> : <AccountCircleIcon sx={{ fontSize: { xs: 24, md: 40 }, }} className="mr-3 text-white" onClick={loginClick} />}
+          <div onClick={() => setMenu(!showMenu)} className="relative">
+            {userData ? <FaceIcon className="mr-3 text-white border p-1 rounded-full" sx={{ fontSize: { xs: 24, md: 45 } }} /> : <AccountCircleIcon sx={{ fontSize: { xs: 24, md: 40 }, }} className="mr-3 text-white" />}
+            {showMenu ? <div className="bg-white z-20 absolute -right-0 top-12 w-40 p-4 rounded-md text-gray-600">
+              {userData ? <div className="pb-2 mb-2 text-lg font-semibold text-black border-b"><EmojiPeopleIcon />{`Hi, ${userData?.name}`}</div> : null}
+              <div className=" border-b pb-2" onClick={() => navigate("/watched")} >Watched Movies </div>
+              <div className="pt-2" onClick={loginOrOutClick} >{userData ? 'Sign Out' : 'Sign In'}</div>
+            </div> : null}
+          </div>
         </div>
       ) : (
         <div
@@ -55,7 +69,7 @@ const TobBar = ({
             placeholder="Search by"
             onChange={setSearchs}
           />
-            {query && query.length !== 4 && !isQueryTypeMovieName ? <div className="text-xs text-red-400 px-3 whitespace-nowrap">Enter a valid year</div> : null}
+            {query && query.length !== 4 && !isQueryTypeMovieName ? <div className="text-xs text-red-600 px-3 whitespace-nowrap">Enter a valid year</div> : null}
           </div>
 
           <div className="mx-2 text-xs md:text-base border rounded-full cursor-pointer flex flex-row whitespace-nowrap">

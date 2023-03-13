@@ -1,29 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import MovieCard from "../commons/card";
 
-const MovieSection = ({ title, movieList, query }) => {
-  let [movieWatched, setMovieWatched] = useState(localStorage.getItem("WATCHED") ?? '');
-  let movieWatchedList = JSON.parse(localStorage.getItem("WATCHED"));
-  
-  function setMovieInWatched(movie) {
-    console.log(movieWatchedList[movie.id]);
-    if (movieWatchedList[movie.id]) {
-      // let list = movieWatchedList;
-      // let ind = list.findIndex(i => i === String(movie.id));
-      // if (ind >= 0) list.splice(ind, 1);
-      // console.log(list.flat());
-      // movieWatched
-    }
-    else {
-      let { id, overview, title, backdrop_path,poster_path } = movie;
-      let obj = {};
-      obj[id] = { id, overview, title, backdrop_path,poster_path }
-      // movieWatched = movieWatched + ',' + movie.id;
-      setMovieWatched(obj);
-      localStorage.setItem("WATCHED", JSON.stringify(obj));
-    }
-  }
-
+const MovieSection = ({ title, movieList, query ,movieWatched,setMovieInWatched}) => {
+ 
   return (
     <div>
       {movieList.length ? (
@@ -34,8 +13,8 @@ const MovieSection = ({ title, movieList, query }) => {
               return movie.poster_path ?
                 <div key={movie.id}>
                   <MovieCard
-                    {...{ movie, query, isWatched: true}}
-                    onMovieSelect={() => setMovieInWatched(movie)}
+                    {...{ movie, query, isWatched: movieWatched && movieWatched[movie.id] ? true : false }}
+                    onMovieSelect={(type) => setMovieInWatched(movie,type)}
                   />
                 </div>
                 : null

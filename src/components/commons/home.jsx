@@ -15,7 +15,7 @@ import { Loader } from "./loader";
 import { useNavigate } from "react-router-dom";
 
 export const Home = () => {
-  let title = "Martin's Movie";
+  let title = "Jay Movies";
   const [movies, setMovies] = useState({
     popular: [],
     topRated: [],

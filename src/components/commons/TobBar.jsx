@@ -37,7 +37,7 @@ const TobBar = ({
         <div className="p-2 md:p-5 flex flex-1 items-center font-medium">
           <div className="flex items-center text-white">
             <TheaterComedyIcon sx={{ fontSize: { xs: 24, md: 45 } }} />
-            <div className="pl-2 pt-2 text-sm md:text-3xl MagentaRose md:w-auto w-full flex justify-between">
+            <div className="pl-2 py-2 text-sm md:text-2xl MagentaRose md:w-auto w-full flex justify-between">
               {title}
             </div>
           </div>

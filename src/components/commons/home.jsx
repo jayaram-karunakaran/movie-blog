@@ -13,6 +13,7 @@ import { allHomeApiCalls } from "../../configs/homeApiCalls";
 import { setMovieInWatchedConfig } from "../../configs/movieWatchSelection";
 import { Loader } from "./loader";
 import { useNavigate } from "react-router-dom";
+import Footer from "./footer";
 
 export const Home = () => {
   let title = "Jay Movies";
@@ -405,5 +406,7 @@ export const Home = () => {
         </Drawer>
       </div>
     </div>
+
+    <Footer />
   </div>
 };
